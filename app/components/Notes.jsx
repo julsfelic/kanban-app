@@ -1,8 +1,12 @@
 import React from 'react';
 
-const Notes = ({notes}) => (
-  <ul>{notes.map(note =>
-    <li key={note.id}>{note.task}</li>
+import Note from './Note';
+
+const Notes = ({notes, onDelete = () => {}}) => (
+  <ul>{notes.map(({id, task}) =>
+    <li key={id}>
+      <Note task={task} onDelete={onDelete.bind(null, id)} />
+    </li>
   )}</ul>
 );
 
