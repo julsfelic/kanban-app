@@ -35,13 +35,41 @@ class App extends React.Component {
     });
   }
 
+  editNotesState = (func) => {
+    this.setState({
+      notes: this.state.notes.map(note => func(note))
+    });
+  }
+
+  activateNoteEdit = (id) => {
+    this.editNotesState((note) => {
+      if (note.id === id) { note.editing = true; }
+      return note;
+    });
+  }
+
+  editNote = (id, task) => {
+    this.editNotesState((note) => {
+      if (note.id === id) {
+        note.editing = false;
+        note.task = task;
+      }
+
+      return note;
+    });
+  };
+
   render() {
     const {notes} = this.state;
 
     return (
       <div>
         <button onClick={this.addNote}>+</button>
-        <Notes notes={notes} onDelete={this.deleteNote} />
+        <Notes
+          notes={notes}
+          onDelete={this.deleteNote}
+          onEdit={this.editNote}
+          onNoteClick={this.activateNoteEdit} />
       </div>
     )
   }
