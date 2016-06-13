@@ -1,22 +1,17 @@
 import React from 'react';
 
-// Transform {store: <AltStore>} to {<store>: store.getState()}
 function composeStores(stores) {
   let ret = {};
 
   Object.keys(stores).forEach(k => {
     const store = stores[k];
 
-    // Combine store state
     ret = Object.assign({}, ret, store.getState());
   });
 
   return ret;
 }
 
-// Connect to Alt through context. This hasn't been optimized
-// at all. If Alt store changes, it will force render.
-//
 function connect(state = () => {}, actions = {}, target) {
   class Connect extends React.Component {
     componentDidMount() {

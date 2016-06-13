@@ -9,8 +9,6 @@ class LaneStore {
   }
 
   create(lane) {
-    // If 'notes' aren't provided for some reason
-    // default to an empty array
     lane.notes = lane.notes || [];
 
     this.setState({
@@ -72,7 +70,6 @@ class LaneStore {
     const targetNoteIndex = targetLane.notes.indexOf(targetId);
 
     if(sourceLane === targetLane) {
-      // move at once to avoid complications
       sourceLane.notes = update(sourceLane.notes, {
         $splice: [
           [sourceNoteIndex, 1],
@@ -81,10 +78,8 @@ class LaneStore {
       });
     }
     else {
-      // get rid of the source
       sourceLane.notes.splice(sourceNoteIndex, 1);
 
-      // and move it to target
       targetLane.notes.splice(targetNoteIndex, 0, sourceId);
     }
 
